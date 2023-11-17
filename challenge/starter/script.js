@@ -2,9 +2,9 @@
 
 var baseurl="https://api.openweathermap.org/data/2.5/forecast?lat="
 var api = "40f343e5b497d011a80df65f7260a8ff"
-var lat ="t"
+var lat =""
 var lonprefix="&lon="
-var lon="t"
+var lon=""
 
 // geocoder
 var geobase="http://api.openweathermap.org/geo/1.0/direct?q="
@@ -31,6 +31,10 @@ function formInput(){
     return response.json();
     }).then(function(data){
         console.log(data)
+        console.log(data[0].name)
+        lat=data[0].lat
+        lon=data[0].lon
+        console.log(lat)
     })
     
 }
@@ -42,19 +46,7 @@ function form(event){
 
 
 
-
-
-// fetch functions
-
-// fetch(queryURL)
-// .then(function(response){
-// return response.json();
-// })
-// .then(function(data){
-// console.log (data);
-// var sometitle = (data)
-
-
+console.log(lat)
 
 
 
