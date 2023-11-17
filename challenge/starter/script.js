@@ -5,6 +5,12 @@ var api = "40f343e5b497d011a80df65f7260a8ff"
 var lat ="t"
 var lonprefix="&lon="
 var lon="t"
+
+// geocoder
+var geobase="http://api.openweathermap.org/geo/1.0/direct?q="
+var geobase2= "&limit=5&appid="
+
+
 var queryurl= baseurl+lat+lonprefix+lon
 
 
@@ -18,6 +24,17 @@ var submitbutton= document.getElementById("search-button")
 
 
 // functions
+function formInput(){
+    var geourl= geobase+ inputid.value+geobase2+api
+    fetch(geourl)
+    .then(function(response){
+    return response.json();
+    }).then(function(data){
+        console.log(data)
+    })
+    
+}
+
 function form(event){
     event.preventDefault()
     console.log(inputid.value);
@@ -27,7 +44,15 @@ function form(event){
 
 
 
+// fetch functions
 
+// fetch(queryURL)
+// .then(function(response){
+// return response.json();
+// })
+// .then(function(data){
+// console.log (data);
+// var sometitle = (data)
 
 
 
@@ -39,3 +64,4 @@ function form(event){
 
 // event listeners
 submitbutton.addEventListener("click",form)
+submitbutton.addEventListener("click",formInput)
