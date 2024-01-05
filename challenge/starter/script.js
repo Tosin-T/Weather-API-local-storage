@@ -20,9 +20,9 @@ var inputclass =document.getElementsByClassName("form-input weather-search")
 var inputid=document.getElementById("search-input")
 var submitbutton= document.getElementById("search-button")
 var searchbuttonlist=document.getElementById("history")
+var locationName; 
 
-
-
+// 1 9 17 25 33
 // functions
 function formInput(){
     var geourl= geobase+ inputid.value+geobase2+api
@@ -31,7 +31,8 @@ function formInput(){
     return response.json();
     }).then(function(data){
         console.log(data)
-        console.log(data[0].name)
+        locationName=(data[0].name)
+        
         var lat=data[0].lat
        var lon=data[0].lon
        var queryurl=(baseurl+lat+lonprefix+lon+apiprefix+api+apiunits)
@@ -40,8 +41,10 @@ function formInput(){
             return response.json();
         }).then(function(data){
             console.log(data)
+            localStorage.setItem(locationName,queryurl)
             var tempLocation=[data.list[0].main.temp]
-            localStorage.setItem("temp",tempLocation)
+            
+            
             console.log(data.list[0].weather[0].icon)
         })
        
@@ -51,7 +54,7 @@ function formInput(){
 
 function form(event){
     event.preventDefault()
-    console.log(inputid.value);
+    ;
    
 }
 
@@ -59,7 +62,14 @@ function createButton(){
 var newButton= document.createElement('button')
 newButton.textContent=inputid.value
 searchbuttonlist.appendChild(newButton)
-console.log(newButton)
+newButton.addEventListener("click",recallCity)
+
+}
+recallCity=()=>{
+    
+const test=localStorage.getItem(locationName)
+console.log(test)
+
 }
 // localStorage.setItem("lastname", "Smith")
 
