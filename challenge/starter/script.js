@@ -14,18 +14,9 @@ var geobase="http://api.openweathermap.org/geo/1.0/direct?q="
 var geobase2= "&limit=5&appid="
 
 var displayId
-https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}`.
-// declared variables
-// test///////
-var testapi= "https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=40f343e5b497d011a80df65f7260a8ff&&&units=metric"
-fetch(testapi)
-.then(function(response){
-    return response.json()
-}).then(function(data){
-    console.log(data)
-})
 
-// icon/////
+
+
 
 var inputclass =document.getElementsByClassName("form-input weather-search")
 var inputid=document.getElementById("search-input")
@@ -44,8 +35,7 @@ var impPtag=document.createElement("p")
 var forecast=document.getElementById("forecast")
 var forecastH1=document.createElement("h1")
 
-// 1 9 17 25 33
-// functions
+
 
 function formInput(){
     var geourl= geobase+ inputid.value+geobase2+api
@@ -53,7 +43,6 @@ function formInput(){
     .then(function(response){
     return response.json();
     }).then(function(data){
-        console.log(data)
         locationName=(data[0].name)
         
         var lat=data[0].lat
@@ -63,7 +52,7 @@ function formInput(){
         .then(function(response){
             return response.json();
         }).then(function(data){
-            console.log(data)
+            
             localStorage.setItem(locationName, JSON.stringify(data))
             renderTodayForcast(data)
           display5DayReport(data)
@@ -124,7 +113,6 @@ function recallCity(cityName) {
        renderTodayForcast(data)
        icon(data);
        display5DayReport(data)
-       console.log(data)
     } else {
         console.log("no data found");
     }
@@ -133,12 +121,14 @@ function recallCity(cityName) {
 display5DayReport=(data)=>{
     forecast.innerHTML = "";
 forecastH1.textContent="5-day Forcast"
-forecast.append(forecastH1)
+forecast.appendChild(forecastH1)
 var dateArray=[data.list[1],data.list[9],data.list[17],data.list[25],data.list[33]]
+var cardRow = document.createElement("div");
+cardRow.classList.add("row")
 for (i=0;i<dateArray.length;i++){
     var dayData = dateArray[i]
 var card=document.createElement("div")
-card.classList.add("card","mb-3")
+card.classList.add("col-md-2", "mb-3")
 var cardBody=document.createElement("div")
 cardBody.classList.add("card-body")
 
@@ -148,6 +138,14 @@ var dateP = document.createElement("p");
 dateP.classList.add("card-text");
 dateP.textContent = formattedDate;
 cardBody.appendChild(dateP)
+
+var iconUrl1 = "https://openweathermap.org/img/wn/";
+var iconId = dayData.weather[0].icon;
+var iconUrl2 = "@2x.png";
+var iconImg = document.createElement("img");
+iconImg.src = iconUrl1 + iconId + iconUrl2;
+iconImg.alt = "Weather Icon";
+cardBody.appendChild(iconImg);
 
 var tempP = document.createElement("p");
 tempP.classList.add("card-text");
@@ -182,19 +180,10 @@ today.appendChild(windPtag)
 humidityPtag.textContent="Humidity"+" "+data.list[0].main.humidity+ " "+"%"
 today.appendChild(humidityPtag)
     ;
-    // today.append(h1,p1,p2,p3)
+ 
   
     
 }
-// localStorage.setItem("lastname", "Smith")
-
-// http://api.openweathermap.org/data/2.5/forecast/daily?lat51.5073219&lon=-0.1276474&appid=40f343e5b497d011a80df65f7260a8ff&units=metric
-// http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-
-
-// time intervals in array 0,9,18,27,36
-
-
 
 
 // event listeners
