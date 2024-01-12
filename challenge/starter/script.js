@@ -24,9 +24,9 @@ fetch(testapi)
 }).then(function(data){
     console.log(data)
 })
+
 // icon/////
-var img= document.createElement("img")
-var impPtag=document.createElement("p")
+
 var inputclass =document.getElementsByClassName("form-input weather-search")
 var inputid=document.getElementById("search-input")
 var submitbutton= document.getElementById("search-button")
@@ -34,12 +34,15 @@ var searchbuttonlist=document.getElementById("history")
 const today =document.getElementById("today")
 var locationName; 
 var queryurl;
+const locationToday=document.createElement("h1")
 var tempPtag = document.createElement("p")
 var windPtag = document.createElement("p")
 var humidityPtag = document.createElement("p");
-var datePtag = document.createElement("p");
-const locationToday=document.createElement("h1")
+var img= document.createElement("img")
+var impPtag=document.createElement("p")
 
+var forecast=document.getElementById("forecast")
+var forecastH1=document.createElement("h1")
 
 // 1 9 17 25 33
 // functions
@@ -63,7 +66,7 @@ function formInput(){
             console.log(data)
             localStorage.setItem(locationName, JSON.stringify(data))
             renderTodayForcast(data)
-          
+          display5DayReport(data)
             icon(data)
             
         })
@@ -120,24 +123,58 @@ function recallCity(cityName) {
         var data = JSON.parse(savedData);
        renderTodayForcast(data)
        icon(data);
+       display5DayReport(data)
        console.log(data)
     } else {
         console.log("no data found");
     }
 }
 
-display5DayReport=()=>{
-var displayInfo=data.list[0].main
+display5DayReport=(data)=>{
+    forecast.innerHTML = "";
+forecastH1.textContent="5-day Forcast"
+forecast.append(forecastH1)
+var dateArray=[data.list[1],data.list[9],data.list[17],data.list[25],data.list[33]]
+for (i=0;i<dateArray.length;i++){
+    var dayData = dateArray[i]
+var card=document.createElement("div")
+card.classList.add("card","mb-3")
+var cardBody=document.createElement("div")
+cardBody.classList.add("card-body")
+
+var date = new Date(dayData.dt_txt);
+var formattedDate = date.toLocaleDateString('en-GB');
+var dateP = document.createElement("p");
+dateP.classList.add("card-text");
+dateP.textContent = formattedDate;
+cardBody.appendChild(dateP)
+
+var tempP = document.createElement("p");
+tempP.classList.add("card-text");
+tempP.textContent = "Temp: " + dayData.main.temp + " °C";
+cardBody.appendChild(tempP);
+
+var windP = document.createElement("p");
+windP.classList.add("card-text");
+windP.textContent = "Wind Speed: " + dayData.wind.speed + " KPH";
+cardBody.appendChild(windP); 
+
+var humidityP = document.createElement("p");
+humidityP.classList.add("card-text");
+humidityP.textContent = "Humidity: " + dayData.main.humidity + "%";
+cardBody.appendChild(humidityP);
+
+card.appendChild(cardBody)
+forecast.appendChild(card)
+
+}
 
 }
 renderTodayForcast=(data)=>{
-    
-locationToday.textContent=data.city.name;
+    var date = new Date(data.list[0].dt_txt);
+    var formattedDate = date.toLocaleDateString('en-GB')  
+locationToday.textContent=data.city.name+" "+ formattedDate;
 today.appendChild(locationToday)
-var date = new Date(data.list[0].dt_txt);
-var formattedDate = date.toLocaleDateString('en-GB')
-datePtag.textContent = "Date: " + formattedDate;
-today.append(datePtag)
 tempPtag.textContent="Temp:"+" "+data.list[0].main.temp+" "+"°C"
 today.appendChild(tempPtag)
 windPtag.textContent="Wind speed"+" "+data.list[0].wind.speed+" "+"KPH"
