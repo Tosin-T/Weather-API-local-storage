@@ -5,7 +5,7 @@ This is an app designed to display the weather of city dynamically when prompted
 
 This project can be downloaded from GitHub.
 
-To download the content, go to the portfolio page which can be found here: 
+To download the content, go to the portfolio page which can be found here: https://github.com/Tosin-T/Weather-API-local-storage
 From this page to download the content go to the code button tab. click the link and below should be a drop down menu with "Download Zip."
 
 Press this and the file will begin to download to a file location of your choice.
