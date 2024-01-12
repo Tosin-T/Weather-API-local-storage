@@ -1,6 +1,6 @@
 // url bases
 
-var baseurl="http://api.openweathermap.org/data/2.5/forecast?lat="
+var baseurl="https://api.openweathermap.org/data/2.5/forecast?lat="
 var apiprefix="&appid="
 var api = "40f343e5b497d011a80df65f7260a8ff"
 var lonprefix="&lon="
@@ -10,7 +10,7 @@ var locationName;
 var queryurl;
 
 // geocoder
-var geobase="http://api.openweathermap.org/geo/1.0/direct?q="
+var geobase="https://api.openweathermap.org/geo/1.0/direct?q="
 var geobase2= "&limit=5&appid="
 
 var displayId
