@@ -93,18 +93,6 @@ function form(event){
     ;
    
 }
-
-function createButton(cityName,) {
-     
-    var newButton = document.createElement('button');
-    newButton.textContent = cityName;
-    searchbuttonlist.appendChild(newButton);
-    newButton.addEventListener('click', function () {
-        recallCity(cityName);
-        
-    });
-}
-
 function recallCity(cityName) {
     var savedData = localStorage.getItem(cityName);
 
@@ -117,6 +105,18 @@ function recallCity(cityName) {
         console.log("no data found");
     }
 }
+function createButton(cityName,) {
+     
+    var newButton = document.createElement('button');
+    newButton.textContent = cityName;
+    searchbuttonlist.appendChild(newButton);
+    newButton.addEventListener('click', function () {
+        recallCity(cityName);
+        
+    });
+}
+
+
 
 display5DayReport=(data)=>{
     forecast.innerHTML = "";
