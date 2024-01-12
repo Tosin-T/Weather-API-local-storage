@@ -26,6 +26,7 @@ fetch(testapi)
 })
 // icon/////
 var img= document.createElement("img")
+var impPtag=document.createElement("p")
 var inputclass =document.getElementsByClassName("form-input weather-search")
 var inputid=document.getElementById("search-input")
 var submitbutton= document.getElementById("search-button")
@@ -36,10 +37,10 @@ var queryurl;
 var tempPtag = document.createElement("p")
 var windPtag = document.createElement("p")
 var humidityPtag = document.createElement("p");
-const h1=document.createElement("h1")
-const p1=document.createElement("p1")
-const p2=document.createElement("p2")
-const p3=document.createElement("p3")
+var datePtag = document.createElement("p");
+const locationToday=document.createElement("h1")
+
+
 // 1 9 17 25 33
 // functions
 
@@ -64,7 +65,7 @@ function formInput(){
             renderTodayForcast(data)
           
             icon(data)
-            console.log()
+            
         })
        
    
@@ -78,7 +79,7 @@ function icon(data){
     var completeUrl=iconUrl1+iconId+iconUrl2
    
    img.src=completeUrl
-   p2.appendChild(img)
+   tempPtag.appendChild(img)
 
     }
     
@@ -131,8 +132,12 @@ var displayInfo=data.list[0].main
 }
 renderTodayForcast=(data)=>{
     
-h1.textContent=data.city.name +" " +data.list[0].dt_txt;
-today.appendChild(h1)
+locationToday.textContent=data.city.name;
+today.appendChild(locationToday)
+var date = new Date(data.list[0].dt_txt);
+var formattedDate = date.toLocaleDateString('en-GB')
+datePtag.textContent = "Date: " + formattedDate;
+today.append(datePtag)
 tempPtag.textContent="Temp:"+" "+data.list[0].main.temp+" "+"°C"
 today.appendChild(tempPtag)
 windPtag.textContent="Wind speed"+" "+data.list[0].wind.speed+" "+"KPH"
